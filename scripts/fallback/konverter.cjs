@@ -68,15 +68,18 @@ function finnRolle(t) {
   // «Klokker  …») eller enkeltmellomrom + stor forbokstav («Prest Ære være …»);
   // enbokstavsroller («L …», «A …») aksepteres med ett mellomrom
   if (!erBokstaver && !/[|:]/.test(skille) && m[2].length < 2 && !/^[A-ZÆØÅ]/.test(rest)) return null;
+  // «Å leve sammen …» — enbokstavsrolle med ett mellomrom og små forbokstav er setningsstart
+  if (erBokstaver && ord.length === 1 && !/[|:]/.test(skille) && m[2].length < 2 && !/^[A-ZÆØÅ]/.test(rest)) return null;
   return { rolle: ord, rest };
 }
 
 /** Bibelreferanse klebet på slutten av en tekstlinje («… liv.Joh3,16»). */
 function refPaaSlutt(t) {
-  const m = t.match(/([\s.»])([1-3]?\s?[A-ZÆØÅ][a-zæøå]+\.?\s*\d+(?:\s?[,;–-]\s?\d+)*[a-z]?)$/);
+  const m = t.match(/([\s.»]|([a-zæøå]))([1-3]?\s?[A-ZÆØÅ][a-zæøå]+\.?\s*\d+(?:\s?[,;–-]\s?\d+)*[a-z]?)$/);
   if (!m) return null;
-  const ref = trim(m[2]).replace(/^([1-3]?)\s*([A-ZÆØÅ][a-zæøå]+)\.?\s*(\d)/, (a, kap, bok, siffer) => (kap ? kap + ' ' : '') + bok + ' ' + siffer);
-  return { foran: trim(t.slice(0, m.index + 1)), ref };
+  const ref = trim(m[3]).replace(/^([1-3]?)\s*([A-ZÆØÅ][a-zæøå]+)\.?\s*(\d)/, (a, kap, bok, siffer) => (kap ? kap + ' ' : '') + bok + ' ' + siffer);
+  const grense = m[2] ? trim(t.slice(0, m.index + 1)) + ' ' : trim(t.slice(0, m.index + 1));
+  return { foran: grense, ref };
 }
 
 /** Leddtittel i ren tekst: kort linje uten avsluttende tegn. Siffer-start
@@ -120,7 +123,7 @@ function lesDocx(fil) {
       if (!tekst) continue;
       const bold = /<w:b\/>|<w:b /.test(r) && !/<w:b w:val="0"/.test(r);
       const italic = /<w:i\/>|<w:i /.test(r) && !/<w:i w:val="0"/.test(r);
-      runs.push({ tekst: dekodXml(tekst), bold, italic });
+      runs.push({ tekst: dekodXml(tekst).replace(/\uF058/g, '\u271d'), bold, italic });
     }
     if (!runs.length && !/<w:pStyle/.test(p)) continue;
     avsnitt.push({ stil, runs, tekst: trim(runs.map((r) => r.tekst).join('')) });
@@ -265,13 +268,23 @@ function byggStruktur(avsnitt, advarsler) {
       forrigeTekst = ''; continue;
     }
 
+    // 7b) Enten/Enten A/enten 1/eller/ELLER B-standalone-linjer → leddheading
+    //     (må komme før rubrikk-regelen — italics-rubrikker ellers havner som
+    //     @NOTAT i instr og grupperEllerLedd får aldri gruppet)
+    if (/^(enten|anten|eller)(\s+[A-Za-z0-9]+)?[.:]?$/i.test(t)) {
+      const tittel = t.replace(/[.:]$/, '');
+      nyttLedd(tittel[0].toUpperCase() + tittel.slice(1));
+      forrigeVarTittel = true;
+      continue;
+    }
+
     // 8) rubrikker → instr
     if (rubrikk) {
       const linje = '@NOTAT ' + t;
       if (item) {
         item.instr = item.instr ? item.instr + '\n' + linje : linje;
       } else {
-        nyttLedd('Rubrikk', 'instruks');
+        nyttLedd('', 'instruks');
         item.instr = linje;
       }
       forrigeTekst = ''; continue;
@@ -326,6 +339,18 @@ function byggStruktur(avsnitt, advarsler) {
     } else {
       leggTilTekst(t);
       forrigeTekst = t;
+    }
+  }
+
+  // rydd: ref-headinger uten egen tekst («Sal 118,1.24» som docx-heading
+  // etter en lesning) slås inn i forrige ledd som BIBELREF-linje
+  for (const sekn of seksjoner) {
+    for (let i = sekn.items.length - 1; i > 0; i--) {
+      const it = sekn.items[i];
+      if (!(it.text ?? '').trim() && !(it.alts ?? []).length && erBibelref(it.heading ?? '') && (sekn.items[i - 1].text ?? '').trim()) {
+        sekn.items[i - 1].text += '\nBIBELREF | ' + trim(it.heading.replace(/^BIBELREF\s*\|\s*/i, ''));
+        sekn.items.splice(i, 1);
+      }
     }
   }
 
@@ -421,7 +446,12 @@ function grupperEllerLedd(seksjoner) {
       let slukt = false;
       if ((m || mV) && ut.length) {
         const base = ut[ut.length - 1];
-        const egnet = base.type !== 'salme' && ((base.text ?? '').trim() || (base.alts ?? []).length);
+        // nummererte leddheadinger («4 Samlingsbønn», «9 Første lesning») er
+        // malens skjelett — de skal aldri slukes som varianter. UNNTAK: rene
+        // «Enten A»/«Eller B»-par (mV) hører til nummererte ledd i gravferds-
+        // og vigselordningene — bare den bare «Eller»-formen holdes unna.
+        const nummerert = /^\d+[\s.]/.test((base.heading ?? '').trim());
+        const egnet = base.type !== 'salme' && (mV || !nummerert) && ((base.text ?? '').trim() || (base.alts ?? []).length);
         // tom tittelledd (kun heading, ingen tekst): variantene som følger
         // hører til denne — de blir alts[] uten at tittelen blir en variant
         const tomTittel = !egnet && base.type !== 'salme' && !(base.text ?? '').trim() && !(base.alts ?? []).length && (base.heading ?? '').trim();
@@ -476,7 +506,7 @@ function grupperSerier(seksjoner) {
       // følgende under-ledd (tom-tittel) fordeles til siste serie før neste prefiks
       // holder: en tom tittelledd rett før serien (f.eks. «*21 Takkseiing …»)
       const forrige = ut[ut.length - 1];
-      const brukForrige = forrige && !(forrige.text ?? '').trim() && !(forrige.alts ?? []).length && (forrige.heading ?? '').trim() && forrige.type !== 'salme';
+      const brukForrige = forrige && !(forrige.text ?? '').trim() && !(forrige.alts ?? []).length && (forrige.heading ?? '').trim() && forrige.type !== 'salme' && !/^\d+[\s.]/.test((forrige.heading ?? '').trim());
       const holder = brukForrige
         ? forrige
         : { type: serier[0].ledd.type ?? 'tekst', heading: prefiks[0].toUpperCase() + prefiks.slice(1), text: '', alts: [], selAlt: 0 };
