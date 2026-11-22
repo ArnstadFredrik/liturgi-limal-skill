@@ -22,7 +22,7 @@ Konverterer Word/PDF-liturgier til `.limal`-maler for liturgi-appen.
    ```bash
    node ~/05\ projects/liturgi-limal-skill/scripts/konverter-liturgi.mjs \
         <input.docx|pdf> --navn "Malens navn" \
-        [--type gudtjeneste|vigsel|gravferd] [--maalform bokmål] \
+        [--type gudstjeneste|vigsel|gravferd] [--maalform bokmål] \
         -o ~/Downloads/navn.limal
    ```
    Skriptet er heuristisk (offline, uten LLM): hoveddeler fra
@@ -38,7 +38,7 @@ Konverterer Word/PDF-liturgier til `.limal`-maler for liturgi-appen.
    - `BIBELREF | <ref>` sist i `text` for bibeltekster.
    - `@NOTAT …` for instruksjoner/rubrikker, `@COPYRIGHT | …` for salmeinfo.
    - Leddtitler: `* ` prefiks på valgfrie ledd; behold nummerering.
-   - `malForm` og `liturgiType` (`gudtjeneste`/`vigsel`/`gravferd`).
+   - `malForm` og `liturgiType` (`gudstjeneste`/`vigsel`/`gravferd`).
 4. **Valider i appen**: Åpne `.limal`-filen (Bibliotek → Maler → importer,
    eller kopier til `~/.config/Liturgi/maler/brukermaler/`) og sjekk
    rendering i redigeringsfanen før du rapporterer ferdig.

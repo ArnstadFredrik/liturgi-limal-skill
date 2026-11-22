@@ -4,7 +4,7 @@
  *
  * Bruk:
  *   node konverter-liturgi.mjs <input.docx|input.pdf> [--navn "Navn"] \
- *        [--type gudtjeneste|vigsel|gravferd] [--maalform bokmål] [-o ut.limal]
+ *        [--type gudstjeneste|vigsel|gravferd] [--maalform bokmål] [-o ut.limal]
  *
  * Krever (macOS): unzip (docx), pdftotext (pdf). Ingen node-avhengigheter.
  *
@@ -203,8 +203,8 @@ const mal = {
   id: navn.toLowerCase().replace(/[^a-z0-9æøåÆØÅ]+/g, '-').replace(/^-|-$/g, '') || uid('mal'),
   name: navn,
   malForm: opt.maalform ?? 'bokmål',
-  liturgiType: opt.type ?? (/vigsel/i.test(navn) ? 'vigsel' : /gravferd|bisettelse/i.test(navn) ? 'gravferd' : 'gudtjeneste'),
-  kanGudtjeneste: true,
+  liturgiType: opt.type ?? (/vigsel/i.test(navn) ? 'vigsel' : /gravferd|bisettelse/i.test(navn) ? 'gravferd' : 'gudstjeneste'),
+  kanGudstjeneste: true,
   sections: seksjoner,
   visInstr: true,
   visRoles: true,

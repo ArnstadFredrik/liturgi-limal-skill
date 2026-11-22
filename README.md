@@ -1,6 +1,6 @@
 # liturgi-limal-skill
 
-Skill + verktøy for å konvertere gudtjenesteliturgier fra **docx/pdf** til
+Skill + verktøy for å konvertere gudstjenesteliturgier fra **docx/pdf** til
 **.limal**-maler for [Liturgi-appen](../liturgi-app).
 
 ## Innhold
@@ -23,7 +23,7 @@ hit.
 
 ```bash
 node scripts/konverter-liturgi.mjs <input.docx|pdf> [--navn "Navn"] \
-     [--type gudtjeneste|vigsel|gravferd] [--maalform bokmål] [-o ut.limal]
+     [--type gudstjeneste|vigsel|gravferd] [--maalform bokmål] [-o ut.limal]
 ```
 
 Skriptet lager et førsteutkast (hoveddeler, ledd, roller, `@NOTAT`,
