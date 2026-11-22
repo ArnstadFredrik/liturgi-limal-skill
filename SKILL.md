@@ -69,8 +69,12 @@ eksisterende maler uten å spørre.
 - Hurtiglager (siste format + script): `~/.cache/liturgi-limal/`
 - Kilden: `github.com/ArnstadFredrik/liturgi-app`
   (`docs/limal-format.md` + `electron/konverter.cjs`)
-- Referansemaler: `~/.config/Liturgi/maler/originaler/`
-- Maler-import i appen: Bibliotek → Maler → importer (eller kopier fil
-  til `~/.config/Liturgi/maler/brukermaler/`)
+- **Referansemaler: `~/.config/Liturgi/maler/originaler/` — LESEKUNNE.
+  Rediger ALDRI filer her. De er generert fra seed-malene i
+  liturgi-app-repoet og blir verifisert/regenerert mot seed ved oppstart;
+  endringer du gjør her blir uansett overskrevet. Skal du redigere en mal,
+  kopier den til `brukermaler/` (eller egen sti) først.**
+- Maler-import i appen: Bibliotek → Maler → importer (eller kopier fil til
+  `~/.config/Liturgi/maler/brukermaler/`)
 - Synk av repo-kopier (ved vedlikehold av skill-repoet):
   `scripts/sync-format.sh` + `scripts/sync-konverter.sh`
