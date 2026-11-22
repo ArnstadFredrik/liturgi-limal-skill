@@ -31,18 +31,26 @@ for (const sec of data.sections ?? []) {
     if (!it.id) feil.push(`ledd uten id i «${sec.title}»`);
     else if (ider.has(it.id)) feil.push(`duplikat id: ${it.id}`);
     else ider.add(it.id);
+    // alle tekstfelt: text + alts + introAlts + avslutningAlts
     const tekst = it.text ?? '';
-    // rollemerker {{r}} … {{/r}} må være balansert
-    const apne = (tekst.match(/\{\{r\}\}/g) ?? []).length;
-    const lukk = (tekst.match(/\{\{\/r\}\}/g) ?? []).length;
-    if (apne !== lukk) feil.push(`ulebalanserte rollemerker i ${it.id} (${apne}/${lukk})`);
-    for (const m of tekst.matchAll(/\{\{r\}\}(.*?)\|/g)) roler.add(m[1].trim());
-    // BIBELREF må være sist i text
-    const linjer = tekst.split('\n');
-    const refIdx = linjer.findIndex((l) => l.startsWith('BIBELREF'));
-    if (refIdx !== -1 && refIdx !== linjer.length - 1) {
-      advar.push(`${it.id}: BIBELREF er ikke sist i text (linje ${refIdx + 1} av ${linjer.length})`);
-    }
+    const felt = [tekst,
+      ...(it.alts ?? []).map((a) => a.text ?? ''),
+      ...(it.introAlts ?? []).map((a) => a.text ?? ''),
+      ...(it.avslutningAlts ?? []).map((a) => a.text ?? '')];
+    felt.forEach((t, fi) => {
+      const navn = fi === 0 ? it.id : `${it.id}[felt ${fi}]`;
+      // rollemerker {{r}} … {{/r}} må være balansert
+      const apne = (t.match(/\{\{r\}\}/g) ?? []).length;
+      const lukk = (t.match(/\{\{\/r\}\}/g) ?? []).length;
+      if (apne !== lukk) feil.push(`ulebalanserte rollemerker i ${navn} (${apne}/${lukk})`);
+      for (const m of t.matchAll(/\{\{r\}\}(.*?)\|/g)) roler.add(m[1].trim());
+      // BIBELREF må være sist i feltet (meny-ledd med flere lesninger er unntak)
+      const linjer = t.split('\n');
+      const refIdx = linjer.findIndex((l) => l.startsWith('BIBELREF'));
+      if (refIdx !== -1 && refIdx !== linjer.length - 1) {
+        advar.push(`${navn}: BIBELREF er ikke sist i text (linje ${refIdx + 1} av ${linjer.length})`);
+      }
+    });
     // alts-struktur
     for (const a of it.alts ?? []) {
       if (!a.label) advar.push(`${it.id}: alternativ uten label`);

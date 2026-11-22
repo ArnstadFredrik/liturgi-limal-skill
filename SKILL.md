@@ -68,16 +68,16 @@ Les skriptets utdata mot kildedokumentet og rett:
   uten nummerering («Samling», «sending») — normaliser manuelt.
 - **Tittelside**: en første seksjon uten tittel med ≤1 ledd er dokumentets
   egen tittelside og skal bort (konverteren fjerner den automatisk).
-- **Dåp i hovedgudtjenesten**: hovedmalen har en lenket Dåp-seksjon
+- **Dåp i hovedgudstjenesten**: hovedmalen har en lenket Dåp-seksjon
   (`__lenket: { malId: …, tittel: … }`, tom `items`). På nynorsk lenkes den
   til nynorsk-dåp-malen — husk å opprette den først.
-- **Hovedgudtjenesten bm 2020 som målestokk**: originalen har 27 nummererte
+- **Hovedgudstjenesten bm 2020 som målestokk**: originalen har 27 nummererte
   ledd (1 Forberedelse … 27 Postludium), lenket Dåp-seksjon og kuraterte
   intro/avsl/alt-labels. Konverteringen mister fortsatt noen slike
   strukturtledd (de ender i forrige ledds tekst) — kontroller at ALLE
   nummererte ledd («4 Samlingsbønn», «9 Første lesning», «13 Preken» …)
   finnes som egne ledd med riktig nummerering, og gjenopprett de som mangler.
-- **Vigsel- og gravferdsmalene er annerledes bygget enn hovedgudtjenesten**:
+- **Vigsel- og gravferdsmalene er annerledes bygget enn hovedgudstjenesten**:
   vigsel bruker én seksjon per nummerert ledd (1 Preludium … 13 Utgang) og har
   en egen skriftlesningskatalog-seksjon (som `skriftlesningKilde` peker på);
   gravferd har skriftlesningstekstgrupper (I, II, …) som egne ledd. Del/valider
@@ -118,7 +118,7 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   → `alts[]` (erstatter leddteksten); tekst som følger alle varianter →
   `avslutningAlts` (rendres etter). Felles «La oss be.», erklæringer og
   Fadervår hører typisk i intro-/avslutning-alts.
-- **Valgfrie ledd** markeres `* ` før headingen. Hovedgudtjenesten bm 2020 har
+- **Valgfrie ledd** markeres `* ` før headingen. Hovedgudstjenesten bm 2020 har
   10 valgfrie ledd: 2, 3, 12, 14, 21, 22, 24, 25, 26, 27. **Vigsel-malene har
   ingen valgfrie ledd — ikke oppfinn dem der.**
 - **Vigsel-strukturen i detalj** (2003 og 2017): seksjoner = Bestemmelser (én
@@ -127,8 +127,10 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   2 Inngangsord, 3 Salme, 4 Skriftlesning, 5 Salme, 6 Tale,
   7 Ekteskapsinngåelse, 8 Overrekkelse av ringer, 9 Forbønn,
   10 Musikk/symbolhandlinger (2017: Musikk/symbolfortellinger), 11 Salme,
-  12 Velsignelse, 13 Utgang. Tallene står IKKE i docx-headingsene — hent dem
-  fra kryssreferanser i brødteksten. Katalog-seksjonen bakerst heter
+  12 Velsignelse, 13 Utgang. I 2003-dokumentet står tallene IKKE i
+  docx-headingsene — hent dem fra kryssreferanser i brødteksten. I 2017-dokumentet
+  står de som «N | Tittel»-headings. Katalog-seksjonen plasseres ETTER ledd
+  4 Skriftlesning (mellom 4 og 5), ikke bakerst. Katalog-seksjonen bakerst heter
   «Skriftlesninger ved Vigsels- og forbønnsliturgi (2003/2017)»: første item
   har tittelen + rollelinje «La oss videre høre fra Guds ord.» + instr med
   utvalgsreglene; deretter étt item per lesning med bibelreferansen som
@@ -136,11 +138,29 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   `bokstav`-feltet satt («A», «B», «C» …). Sett
   `data.skriftlesningKilde = <katalog-seksjonens tittel>` (feltet peker på en
   SEKSJONSTITTEL i samme mal).
+- **Rolle `A` finnes i originalene** (hovedgudstjeneste og gravferd bruker den)
+  — bruk den fritt når kilden gjør det; rollesettet er ikke lukket.
+- **BIBELREF-meny-ledd**: et ledd som tilbyr FLERE lesningsalternativer kan ha
+  flere `BIBELREF |`-linjer midt i text (én per alternativ). Konvensjonen
+  «BIBELREF sist» gjelder vanlige enkelt-lesningsledd; meny-ledd er unntak.
+- **«Her kan følge …»-rubrikker** og liknende valgrubrikker → `@NOTAT` i
+  leddets `instr`.
+- **Kildefeil («0g sier» osv.) bevares verbatim** (literal preservation) og
+  flagges i rapporten.
 - **Gravferdsstrukturen i detalj** (2003): seksjoner med
   `delGruppe: "ved graven"` / `"i krematorium"` (+ `delGrupper`-katalogen på
   mal-data). Skriftlesningstekstgrupper (I, II, III, «Ved barns gravferd») som
   egne ledd i en «Skriftlesninger»-seksjon, hver med alts[] per tekst (label =
-  tema eller bibelref).
+  tema eller bibelref). Originalens seksjonstitler er
+  funksjonelle: «Inngang og minneord», «Skriftlesninger», «Tale»,
+  «Jordpåkastelse» (to seksjoner — ved graven / i krematorium, gjerne med
+  delGruppe eller A./B.-titler). En «Alminnelige bestemmelser»-før-seksjon
+  med bestemmelsene som én instr-item er godkjent.
+- **Nattverdbønnene i hovedgudstjenesten**: Sanctus og verba er gjentatt inni
+  hver nattverdbønne-variant i kilden. Formatet støtter ikke nestede
+  varianter — behold dupliseringen inni alts-teksten (kjent begrensning),
+  eller gjør slik originalmalen gjør det (se seed som FORMAT-referanse fra
+  en annen liturgi).
 - **Wingdings-korset** (U+F058 i docx-runs) konverteres automatisk til ✝.
 - **Sidereferanser i kilden** («(se s 11 i dokumentet)») omskrives til
   seksjonsnavn («(se seksjonen Skriftlesninger)»).
