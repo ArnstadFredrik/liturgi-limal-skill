@@ -156,6 +156,26 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   «Jordpåkastelse» (to seksjoner — ved graven / i krematorium, gjerne med
   delGruppe eller A./B.-titler). En «Alminnelige bestemmelser»-før-seksjon
   med bestemmelsene som én instr-item er godkjent.
+- **Rollemerket er BARE rolletokenet** (`{{r}}L |{{/r}}`) — kvalifikasjoner
+  («synger eller sier», «vendt mot menigheten») holdes UTENFOR r-merket, i
+  tekststart eller `@NOTAT`. Ikke lag roller som «L synger eller sier».
+- **«Ved barns gravferd»** i gravferdsmalen: valgfritt ledd (`* `-markering)
+  med tre lesningstekster i sekvens.
+- **Item-former** (`type: "instruks"`, fulle rollenavn, «Kort»/«Lang»-labels)
+  kan leses fra et seed av en ANNEN liturgi som FORMAT-referanse.
+- **Vigsel 2017**: heading-stilte «N | Tittel»-normaliseres til «N Tittel»
+  (så vel som seksjonstittel). Katalogens første item skal ha
+  katalog-seksjonens tittel som heading.
+- **Unike id-er med malprefiks** (f.eks. `vigsel-2017-bokmal-7`) — kollidærer
+  ikke med seed-id-er.
+- **Lenket Dåp i hovedgudstjenesten bm**: `__lenket: { malId:
+  "dop-i-hovedgudstjenesten-2017", tittel: "Dåp" }`, plassert rett etter
+  «I. Samling».
+- **@NOTAT-prefikset er konvensjon også i `instr`** (konverteren skriver det;
+  appen viser instr som notat uansett) — ikke fjern det.
+- **Skriverfellen («gudtjeneste» uten s)**: sjekk filnavn, rapport og
+  .limal-fil for «gudtjeneste»-uten-s-mønsteret og rett til «gud·s·tjeneste»
+  før levering. Filnavnet skal være «hovedgud·s·tjeneste» med s.
 - **Nattverdbønnene i hovedgudstjenesten**: Sanctus og verba er gjentatt inni
   hver nattverdbønne-variant i kilden. Formatet støtter ikke nestede
   varianter — behold dupliseringen inni alts-teksten (kjent begrensning),
