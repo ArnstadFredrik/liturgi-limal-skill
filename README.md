@@ -1,23 +1,28 @@
 # liturgi-limal-skill
 
 Skill + verktøy for å konvertere gudstjenesteliturgier fra **docx/pdf** til
-**.limal**-maler for [Liturgi-appen](../liturgi-app).
+**.limal**-maler for [Liturgi-appen](https://github.com/ArnstadFredrik/liturgi-app).
 
-## Innhold
+## Viktig: liturgi-app er kilden til sannheten
 
-- `SKILL.md` — arbeidsflyten for LLM-styrt konvertering
-- `scripts/konverter-liturgi.mjs` — offline konverteringsskript (ingen
-  LLM, ingen node-avhengigheter; krever `unzip` for docx og `pdftotext`
-  for pdf)
-- `references/` — kopier av formatspesifikasjonen (synkroniseres fra
-  liturgi-app-repoet)
+Formatspesifikasjonen (`docs/limal-format.md`) og konverter-logikken
+(`electron/konverter.cjs`) vedlikeholdes i liturgi-app-repoet. Skillen
+henter **alltid siste versjon fra GitHub ved kjøretid**:
 
-## Formatspesifikasjonen
+- `scripts/hent-siste.sh` — laster siste format + script til
+  `~/.cache/liturgi-limal/` (LLM-en leser formatdokumentet derfra)
+- `scripts/konverter-liturgi.mjs` — CLI som henter siste konverter-logikk
+  og kjører den (`--offline` avslår henting og bruker hurtiglager/fallback)
+- `scripts/fallback/konverter.cjs` — innebygd kopi for offline bruk
 
-Kilden til sannheten for `.limal`-formatet ligger i liturgi-app-repoet:
-`~/05 projects/liturgi-app/docs/limal-format.md`. Oppdateringer av
-formatet gjøres DER; kjør `sync-format.sh` for å kopiere siste utgave
-hit.
+## Vedlikehold av dette repoet
+
+Kopiene her er bare fallback/bootstrap. Etter endringer i liturgi-appen:
+
+```bash
+./scripts/sync-format.sh      # oppdater references/limal-format.md
+./scripts/sync-konverter.sh   # oppdater scripts/fallback/konverter.cjs
+```
 
 ## Offline skript
 
@@ -27,5 +32,5 @@ node scripts/konverter-liturgi.mjs <input.docx|pdf> [--navn "Navn"] \
 ```
 
 Skriptet lager et førsteutkast (hoveddeler, ledd, roller, `@NOTAT`,
-`BIBELREF`, salmer). Finpuss — variant-gruppering, rolle-sjekk,
+`BIBELREF`, salmer, copyright). Finpuss — variant-gruppering, rolle-sjekk,
 `alts`-labeling — gjøres av LLM/appen etterpå, jfr. SKILL.md.

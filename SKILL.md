@@ -6,48 +6,71 @@ description: Konverter gudstjenesteliturgi fra docx/pdf til .limal (Liturgi-appe
 # Konvertering av liturgier til .limal
 
 Konverterer Word/PDF-liturgier til `.limal`-maler for liturgi-appen.
+**liturgi-app-repoet er kilden til sannheten** for både formatet og
+konverter-logikken — skillen henter alltid siste versjon fra GitHub
+ved kjøretid, så aldri stol på lokale kopier.
 
-## Kilder til sannhet (les disse FØRST)
+## Steg 1 — hent siste format og script (ALLTID først)
 
-1. **Format og struktur**: `~/05 projects/liturgi-app/docs/limal-format.md`
-   — hold alltid denne filen i liturgi-app-repoet oppdatert. Hent den med
-   `read_file` før hver konvertering (den kan ha endret seg siden sist).
-2. **Referansemaler**: `~/.config/Liturgi/maler/originaler/*.limal` —
-   sammenlign med en eksisterende mal for tone, roller og struktur.
+```bash
+bash <skill-mappe>/scripts/hent-siste.sh
+```
 
-## Arbeidsflyt
+Henter siste utgave til hurtiglageret:
 
-1. **Les formatet**: `read_file` på `docs/limal-format.md` (over).
-2. **Kjør det offline skriptet** for et første utkast:
-   ```bash
-   node ~/05\ projects/liturgi-limal-skill/scripts/konverter-liturgi.mjs \
-        <input.docx|pdf> --navn "Malens navn" \
-        [--type gudstjeneste|vigsel|gravferd] [--maalform bokmål] \
-        -o ~/Downloads/navn.limal
-   ```
-   Skriptet er heuristisk (offline, uten LLM): hoveddeler fra
-   overskrifts-stiler/nummerering, `@NOTAT` fra rubrikker, `BIBELREF |`
-   fra referanselinjer, `{{r}}ROLLE |{{/r}}` fra rolleprefiks, salmer
-   fra «Nr. X»-linjer. Dubletter av innhold og variant-gruppering
-   («Eller»-rubrikker) er kjente svakheter.
-3. **LLM-gjennomgang** (dette er din jobb): les skriptets utdata mot
-   kildedokumentet og rett:
-   - Roller: `{{r}}L |{{/r}}`, `{{r}}ML/L |{{/r}}` … — sjekk hver linje.
-   - Variant-gruppering: tekster skilt med «Eller»-rubrikker skal bli
-     `alts[]` på samme ledd (label = gjerne bibelreferansen).
-   - `BIBELREF | <ref>` sist i `text` for bibeltekster.
-   - `@NOTAT …` for instruksjoner/rubrikker, `@COPYRIGHT | …` for salmeinfo.
-   - Leddtitler: `* ` prefiks på valgfrie ledd; behold nummerering.
-   - `malForm` og `liturgiType` (`gudstjeneste`/`vigsel`/`gravferd`).
-4. **Valider i appen**: Åpne `.limal`-filen (Bibliotek → Maler → importer,
-   eller kopier til `~/.config/Liturgi/maler/brukermaler/`) og sjekk
-   rendering i redigeringsfanen før du rapporterer ferdig.
-5. **Ikke overskriv** brukerens eksisterende maler uten å spørre.
+- `~/.cache/liturgi-limal/limal-format.md` — **les denne med `read_file`**
+  før konverteringen (kan ha endret seg siden sist)
+- `~/.cache/liturgi-limal/konverter.cjs` — konverter-logikken CLI-en kjører
+
+Uten nett faller CLI-en tilbake til en innebygd fallback-kopi
+(`scripts/fallback/konverter.cjs`) — da er det ekstra viktig å nevne
+til brukeren at konverteringen kan være gjort med eldre logikk.
+
+## Steg 2 — kjør CLI-en for et første utkast
+
+```bash
+node <skill-mappe>/scripts/konverter-liturgi.mjs \
+     <input.docx|pdf> --navn "Malens navn" \
+     [--type gudstjeneste|vigsel|gravferd] [--maalform bokmål] \
+     -o ~/Downloads/navn.limal
+```
+
+CLI-en henter selv siste konverter-logikk fra liturgi-app-repoet før den
+kjører (avslå med `--offline`). Skriptet er heuristisk (uten LLM):
+hoveddeler fra overskrifts-stiler/nummerering/versaler, `@NOTAT` fra
+rubrikker, `BIBELREF |` fra referanselinjer (også klebet på linjeslutt),
+`{{r}}ROLLE |{{/r}}` fra rolleprefiks (med og uten `|`), salmer fra
+`N13 <nr> Tittel`-linjer, sidetall strippes, `T/M/O`-/`©`-copyright som
+`@COPYRIGHT`. Kjente svakheter: sangvers uten N13-markør kan bli egne
+titler, «Eller»-variantgruppering må gjøres manuelt.
+
+## Steg 3 — LLM-gjennomgang (dette er din jobb)
+
+Les skriptets utdata mot kildedokumentet og rett:
+
+- Roller: `{{r}}L |{{/r}}`, `{{r}}ML/L |{{/r}}` … — sjekk hver linje.
+- Variant-gruppering: tekster skilt med «Eller»-rubrikker skal bli
+  `alts[]` på samme ledd (label = gjerne bibelreferansen).
+- `BIBELREF | <ref>` sist i `text` for bibeltekster.
+- `@NOTAT …` for instruksjoner/rubrikker, `@COPYRIGHT | …` for salmeinfo.
+- Leddtitler: `* ` prefiks på valgfrie ledd; behold nummerering.
+- Sangvers som ble egne titler: slå sammen til ett salmeledd.
+- `malForm` og `liturgiType` (`gudstjeneste`/`vigsel`/`gravferd`).
+
+## Steg 4 — valider i appen
+
+Åpne `.limal`-filen (Bibliotek → Maler → importer, eller kopier til
+`~/.config/Liturgi/maler/brukermaler/`) og sjekk rendering i
+redigeringsfanen før du rapporterer ferdig. Ikke overskriv brukerens
+eksisterende maler uten å spørre.
 
 ## Nyttige stier
 
-- Offline skript: `scripts/konverter-liturgi.mjs` (dette repoet)
-- Formatdok: `~/05 projects/liturgi-app/docs/limal-format.md`
+- Hurtiglager (siste format + script): `~/.cache/liturgi-limal/`
+- Kilden: `github.com/ArnstadFredrik/liturgi-app`
+  (`docs/limal-format.md` + `electron/konverter.cjs`)
 - Referansemaler: `~/.config/Liturgi/maler/originaler/`
-- Maler-import i appen: Bibliotek → Maler → importer (eller kopier fil til
-  `~/.config/Liturgi/maler/brukermaler/`)
+- Maler-import i appen: Bibliotek → Maler → importer (eller kopier fil
+  til `~/.config/Liturgi/maler/brukermaler/`)
+- Synk av repo-kopier (ved vedlikehold av skill-repoet):
+  `scripts/sync-format.sh` + `scripts/sync-konverter.sh`
