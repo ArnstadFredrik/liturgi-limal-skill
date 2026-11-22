@@ -57,6 +57,28 @@ Les skriptets utdata mot kildedokumentet og rett:
 - Sangvers som ble egne titler: slå sammen til ett salmeledd.
 - `malForm` og `liturgiType` (`gudstjeneste`/`vigsel`/`gravferd`).
 
+### Språkspesifikke mønstre (lærdom fra nynorsk-importen)
+
+- **Nynorsk «anten/eller» = bokmål «enten/eller»** — heading som starter med
+  `enten`/`anten`/`eller` er en variant av forrige ledd. `grupperEllerLedd` i
+  konverteren håndterer dette; kontroller at variantene ble gruppert som
+  `alts[]` (labels A/B/C…) og ikke ligger igjen som egne ledd.
+- **Seksjonstitler** skal speile originalenes mønster: `I. Samling`,
+  `II. Ordet`, `III. Nattverd`, `IV. Sendelse`. Kilde-dokumenter kan ha dem
+  uten nummerering («Samling», «sending») — normaliser manuelt.
+- **Tittelside**: en første seksjon uten tittel med ≤1 ledd er dokumentets
+  egen tittelside og skal bort (konverteren fjerner den automatisk).
+- **Dåp i hovedgudtjenesten**: hovedmalen har en lenket Dåp-seksjon
+  (`__lenket: { malId: …, tittel: … }`, tom `items`). På nynorsk lenkes den
+  til nynorsk-dåp-malen — husk å opprette den først.
+- **Innledning/avslutning på alternativgrupper**: deler alle alternativene
+  første- og/eller sistelinje («La oss be.» / «Amen.»), løfter
+  `trekkUtIntroAvslutning` dem ut som `introAlts`/`avslutningAlts`. Står den
+  felles innledningen som EGET ledd før variantene (vanlig i kildedokumenter),
+  må den flyttes inn som `introAlts` manuelt i dev.
+- Nynorsk er en egen målform: skrivemåten i innledninger/avslutninger avviker
+  fra bokmålet — ikke kopier bokmålstekster, kontroller mot nynorsk-kilden.
+
 ## Steg 4 — valider i appen
 
 Åpne `.limal`-filen (Bibliotek → Maler → importer, eller kopier til
