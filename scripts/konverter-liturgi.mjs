@@ -55,12 +55,22 @@ if (!opt.offline) {
     // ingen nett / feil i siste versjon — fallback under
   }
 }
-if (!kodeSti && fs.existsSync(cacheSti)) {
-  try { execFileSync('node', ['--check', cacheSti], { stdio: 'pipe' }); kodeSti = cacheSti; } catch {}
-}
-if (!kodeSti && fs.existsSync(fallbackSti)) {
-  kodeSti = fallbackSti;
-  console.error('NB: bruker innebygd fallback-kopi (kunne ikke hente siste versjon fra liturgi-app).');
+if (!kodeSti) {
+  // Hentingen feila: velg den NYESTE av hurtiglageret og fallback-kopien
+  // (hurtiglageret kan være eldre enn fallbacken etter en oppdatering).
+  const harCache = fs.existsSync(cacheSti);
+  const harFall = fs.existsSync(fallbackSti);
+  const cacheNy = harCache && (!harFall || fs.statSync(cacheSti).mtimeMs >= fs.statSync(fallbackSti).mtimeMs);
+  if (harCache && cacheNy) {
+    try { execFileSync('node', ['--check', cacheSti], { stdio: 'pipe' }); kodeSti = cacheSti; } catch {}
+  }
+  if (!kodeSti && harFall) {
+    kodeSti = fallbackSti;
+    console.error('NB: bruker innebygd fallback-kopi (kunne ikke hente siste versjon fra liturgi-app).');
+  }
+  if (!kodeSti && harCache) {
+    try { execFileSync('node', ['--check', cacheSti], { stdio: 'pipe' }); kodeSti = cacheSti; } catch {}
+  }
 }
 if (!kodeSti) {
   console.error('Fant verken hurtiglager, fallback eller nett — kan ikke konvertere.');
