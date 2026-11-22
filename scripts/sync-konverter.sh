@@ -5,6 +5,7 @@
 set -e
 BASE="https://raw.githubusercontent.com/ArnstadFredrik/liturgi-app/main"
 MAAL="$(cd "$(dirname "$0")/.." && pwd)/scripts/fallback/konverter.cjs"
-curl -fsSL "$BASE/electron/konverter.cjs" -o "$MAAL"
+TS=$(date +%s)
+curl -fsSL "$BASE/electron/konverter.cjs?v=$TS" -o "$MAAL"
 node --check "$MAAL"
 echo "Hentet fra GitHub: $BASE/electron/konverter.cjs -> $MAAL"

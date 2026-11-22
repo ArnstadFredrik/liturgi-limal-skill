@@ -7,8 +7,9 @@ CACHE="$HOME/.cache/liturgi-limal"
 mkdir -p "$CACHE"
 BASE="https://raw.githubusercontent.com/ArnstadFredrik/liturgi-app/main"
 
-curl -fsSL "$BASE/docs/limal-format.md" -o "$CACHE/limal-format.md"
-curl -fsSL "$BASE/electron/konverter.cjs" -o "$CACHE/konverter.cjs"
+TS=$(date +%s)
+curl -fsSL "$BASE/docs/limal-format.md?v=$TS" -o "$CACHE/limal-format.md"
+curl -fsSL "$BASE/electron/konverter.cjs?v=$TS" -o "$CACHE/konverter.cjs"
 node --check "$CACHE/konverter.cjs"
 
 echo "Oppdatert fra liturgi-app (kilden):"

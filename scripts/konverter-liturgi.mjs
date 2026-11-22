@@ -48,7 +48,7 @@ const fallbackSti = path.join(her, 'fallback', 'konverter.cjs');
 let kodeSti = null;
 if (!opt.offline) {
   try {
-    execFileSync('curl', ['-fsSL', '--max-time', '20', RAW, '-o', cacheSti], { stdio: 'pipe' });
+    execFileSync('curl', ['-fsSL', '--max-time', '20', RAW + '?v=' + Date.now(), '-o', cacheSti], { stdio: 'pipe' });
     execFileSync('node', ['--check', cacheSti], { stdio: 'pipe' });
     kodeSti = cacheSti;
   } catch {

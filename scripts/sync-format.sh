@@ -5,5 +5,6 @@ set -e
 BASE="https://raw.githubusercontent.com/ArnstadFredrik/liturgi-app/main"
 maal="$(cd "$(dirname "$0")/.." && pwd)/references/limal-format.md"
 mkdir -p "$(dirname "$maal")"
-curl -fsSL "$BASE/docs/limal-format.md" -o "$maal"
+TS=$(date +%s)
+curl -fsSL "$BASE/docs/limal-format.md?v=$TS" -o "$maal"
 echo "Hentet fra GitHub: $BASE/docs/limal-format.md -> $maal"
