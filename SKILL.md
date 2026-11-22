@@ -71,6 +71,9 @@ Les skriptets utdata mot kildedokumentet og rett:
 - **Dåp i hovedgudtjenesten**: hovedmalen har en lenket Dåp-seksjon
   (`__lenket: { malId: …, tittel: … }`, tom `items`). På nynorsk lenkes den
   til nynorsk-dåp-malen — husk å opprette den først.
+- **WIP/utkast-status bor i malen** (`wip: true`) — ingen db-nøkkel. Originalmaler
+  med wip bekreftes i Malverktøy (dev) og skjules fra biblioteket; brukermaler
+  med wip omtales som «utkast» og bekreftes i bibliotekets mal-liste.
 - **Innledning/avslutning på alternativgrupper**: deler alle alternativene
   første- og/eller sistelinje («La oss be.» / «Amen.»), løfter
   `trekkUtIntroAvslutning` dem ut som `introAlts`/`avslutningAlts`. Står den
