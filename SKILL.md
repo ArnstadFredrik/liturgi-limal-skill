@@ -77,6 +77,17 @@ Les skriptets utdata mot kildedokumentet og rett:
   strukturtledd (de ender i forrige ledds tekst) — kontroller at ALLE
   nummererte ledd («4 Samlingsbønn», «9 Første lesning», «13 Preken» …)
   finnes som egne ledd med riktig nummerering, og gjenopprett de som mangler.
+- **Vigsel- og gravferdsmalene er annerledes bygget enn hovedgudtjenesten**:
+  vigsel bruker én seksjon per nummerert ledd (1 Preludium … 13 Utgang) og har
+  en egen skriftlesningskatalog-seksjon (som `skriftlesningKilde` peker på);
+  gravferd har skriftlesningstekstgrupper (I, II, …) som egne ledd. Del/valider
+  seksjonene mot dette — konverteren lager store seksjoner fra docx-headingene.
+- **Seksjonstitler fra docx-headinger kan være rotete** («ORDNING FOR»,
+  «ELLER», versaler som «JORDPÅKASTELSE») — rydd dem og bruk nummerert
+  mønster der det passer.
+- **Enten A / Eller B-par** i gravferd/vigsel hører til det nø ummererte leddet
+  de følger — `grupperEllerLedd` grupper dem nå inn der (unntaket for
+  nummererte baser gjelder bare den bare «Eller»-formen).
 - **Alts-labels**: konverteren bruker A/B/C… — originalene bruker
   beskrivende labels (f.eks. «Nåde være med dere og fred», «Allmenn serie 1,
   2, fest- og fasteserien»). Beskrivende labels må settes manuelt i dev.
