@@ -71,6 +71,15 @@ Les skriptets utdata mot kildedokumentet og rett:
 - **Dåp i hovedgudtjenesten**: hovedmalen har en lenket Dåp-seksjon
   (`__lenket: { malId: …, tittel: … }`, tom `items`). På nynorsk lenkes den
   til nynorsk-dåp-malen — husk å opprette den først.
+- **Hovedgudtjenesten bm 2020 som målestokk**: originalen har 27 nummererte
+  ledd (1 Forberedelse … 27 Postludium), lenket Dåp-seksjon og kuraterte
+  intro/avsl/alt-labels. Konverteringen mister fortsatt noen slike
+  strukturtledd (de ender i forrige ledds tekst) — kontroller at ALLE
+  nummererte ledd («4 Samlingsbønn», «9 Første lesning», «13 Preken» …)
+  finnes som egne ledd med riktig nummerering, og gjenopprett de som mangler.
+- **Alts-labels**: konverteren bruker A/B/C… — originalene bruker
+  beskrivende labels (f.eks. «Nåde være med dere og fred», «Allmenn serie 1,
+  2, fest- og fasteserien»). Beskrivende labels må settes manuelt i dev.
 - **WIP/utkast-status bor i malen** (`wip: true`) — ingen db-nøkkel. Originalmaler
   med wip bekreftes i Malverktøy (dev) og skjules fra biblioteket; brukermaler
   med wip omtales som «utkast» og bekreftes i bibliotekets mal-liste.
