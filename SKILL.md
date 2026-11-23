@@ -168,6 +168,18 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   i alternativet/leddet den angår: som `instr` på alternativet eller som
   `@NOTAT …` først i alt-teksten. Behold nøkkelen («Ved dåp av born:»)
   først i instr-teksten så det er tydelig hva den gjelder.
+- **Rolleformer i nynorsk-kildene** formateres som andre roller: «L syng
+  eller seier |» og «L seier |» → `{{r}}L |{{/r}} syng eller seier: …` /
+  `{{r}}L |{{/r}} seier: …`; «A eller L/ML |» → `{{r}}A/L/ML |{{/r}} …`;
+  «A syng |» → `{{r}}A |{{/r}} syng: …`. Rolletokenet kan være
+  flerleddet («L/ML», «A eller L/ML» → `A/L/ML`). Roller SKAL formateres
+  OGSÅ inne i alternativer (alts/introAlts/avslutningAlts) — ikke bare i
+  leddets hovedtekst.
+- **Anten/enten N + eller N-serier inne i ett ledd** (f.eks. Samlingsbønnen
+  i HG-nn med «anten 1 … eller 2 … eller 3 …») skal splittes til `alts[]`
+  på leddet (label = nummeret), samme mønster som a–g-seriene. Voko for
+  at konverterens bibelref-klebe-rule kan ha klebet «BIBELREF | » foran
+  variantmarkørene — fjern den prefiksen.
 - **Kildefeil («0g sier» osv.) bevares verbatim** (literal preservation) og
   flagges i rapporten.
 - **Gravferdsstrukturen i detalj** (2003): seksjoner med
