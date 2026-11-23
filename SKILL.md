@@ -153,9 +153,12 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   egne ledd i en «Skriftlesninger»-seksjon, hver med alts[] per tekst (label =
   tema eller bibelref). Originalens seksjonstitler er
   funksjonelle: «Inngang og minneord», «Skriftlesninger», «Tale»,
-  «Jordpåkastelse» (to seksjoner — ved graven / i krematorium, gjerne med
-  delGruppe eller A./B.-titler). En «Alminnelige bestemmelser»-før-seksjon
-  med bestemmelsene som én instr-item er godkjent.
+  «Jordpåkastelse» og «Jordpåkastelse». Leddførdeling: «Inngang og
+  minneord» = ledd 1–8, «Tale» = ledd 9–14, første «Jordpåkastelse» =
+  ledd 15–18 (ved graven 16–22), andre «Jordpåkastelse» = ledd 19–23 (i
+  krematorium). En «Alminnelige bestemmelser»-seksjon først (bestemmelsene
+  som én instr-item) er godkjent i tillegg — seksjoner skal IKKE splittes
+  ytterligere.
 - **Rollemerket er BARE rolletokenet** — eksempel: kildelinjen
   «L synger eller sier: Herren være med dere» blir
   `{{r}}L |{{/r}} synger eller sier: Herren være med dere` (kvalifikatoren
@@ -183,7 +186,7 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   IKKE flattet ut i én alts-gruppe**: originalen deler serien over PARALLELE
   ledd, ett ledd per serie-trinn, der hvert trinn får seriens varianter som
   alts. III. Nattverd i originalen: 20 Forberedelse av måltidet, Prefasjonsdialog
-  (felles tekst), * 21 Prefasjon (alts: 19), Sanctus (alts: 2), Epiklese
+  (felles tekst), * 21 Prefasjon (alts: 19 — kirkeårsvarianter: Advent, Jul, Åpenbaringstiden, Faste, Påske … IKKE nattverdbønne-serien), Sanctus (alts: 2), Epiklese
   (alts: 7), Innstiftelsesordene VERBA (alts: 7), Troens mysterium (felles),
   Avslutning (alts: 7), Fadervår, * 22 Fredshilsen PAX, Du Guds Lam AGNUS DEI
   (alts: 2), Invitasjon og utdeling, 23 Måltidets avslutning – Takkebønn
