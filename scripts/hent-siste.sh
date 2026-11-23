@@ -16,6 +16,8 @@ node --check "$CACHE/konverter.cjs"
 # GitHub raw kan ha CDN-forsinkelse rett etter push — fall tilbake til
 # fallback-kopien i dette repoet ved 404.
 SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+curl -fsSL "$BASE/scripts/skriverfelle.mjs?v=$TS" -o "$CACHE/skriverfelle.mjs" || cp "$SKILL_DIR/scripts/fallback/skriverfelle.mjs" "$CACHE/skriverfelle.mjs"
+node --check "$CACHE/skriverfelle.mjs"
 if curl -fsSL "$BASE/scripts/valider-app.mjs?v=$TS" -o "$CACHE/valider-app.mjs"; then
   curl -fsSL "$BASE/src/lib/lit.js?v=$TS" -o "$CACHE/lit.js" || cp "$SKILL_DIR/scripts/fallback/lit.js" "$CACHE/lit.js"
 else

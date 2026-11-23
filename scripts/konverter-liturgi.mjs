@@ -92,6 +92,15 @@ const ut = opt.ut ?? path.join(os.homedir(), 'Downloads', safeNavn(mal.name) + '
 fs.mkdirSync(path.dirname(ut), { recursive: true });
 fs.writeFileSync(ut, JSON.stringify({ liturgiFormat: 1, kind: 'template', data: mal }, null, '\t'));
 
+// skriverfelle: rett gud(s)tjeneste-formen uten s i utdata + filnavn
+try {
+  const felle = path.join(CACHE, 'skriverfelle.mjs');
+  if (fs.existsSync(felle)) {
+    const { execFileSync } = await import('node:child_process');
+    execFileSync(process.execPath, [felle, ut], { stdio: 'inherit' });
+  }
+} catch { }
+
 const antLedd = mal.sections.reduce((n, s) => n + s.items.length, 0);
 console.log('Konvertert: ' + mal.sections.length + ' hoveddeler, ' + antLedd + ' ledd');
 console.log('Skrevet: ' + ut);

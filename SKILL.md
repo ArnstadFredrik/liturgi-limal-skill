@@ -245,6 +245,23 @@ kildedokumentet, programmert — ikke bare øynemål:
 5. **Retting**: funnene fra 2–4 rettes i .limal-filen FØR levering —
    kontrollen skal ikke bare dokumentere feil, men få dem rettet.
 
+### Skriverfelle-sjekk (obligatorisk på ALLE leveransefiler)
+
+Skriveverktøy kan miste s-en i «gud(s)tjeneste»-familien
+(«gudtjeneste», «gudteneste», «hovedgudtjeneste», «hovudgudeneste» …).
+Kildedokumentene er verifisert rene, så en automatisk rett er trygg:
+
+```bash
+node ~/.cache/liturgi-limal/skriverfelle.mjs <fil.limal> <RAPPORT.md>
+```
+
+- Retter innholdet i .limal-filer (alle tekstfelter, også mal-navn) og
+  rapporter, og OMDØPER filer hvis filnavnet inneholder feilen.
+- `konverter-liturgi.mjs` kjører den automatisk på utdatafilen.
+- Kjør den på nytt ETTER hver manuelle redigering av filer, og som siste
+  trinn før levering. Kontroller etterpå at filnavnet har korrekt
+  skrivemåte («hovedgud·s·tjeneste»).
+
 ## Steg 4 — app-nær validering (headless)
 
 `hent-siste.sh` henter `~/.cache/liturgi-limal/valider-app.mjs` + appens
