@@ -18,6 +18,7 @@ ved kjøretid, så aldri stol på lokale kopier.
 > KUN når brukeren eksplisitt ber om det, eller når brukeren selv importerer
 > via appens innebygde konverteringsmodal. Et script-utkast skal aldri
 > importeres til appens originaler/brukermaler som om det var ferdig.
+
 ## Steg 1 — hent siste format og script (ALLTID først)
 
 
