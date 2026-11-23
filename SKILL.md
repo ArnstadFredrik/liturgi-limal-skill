@@ -160,14 +160,16 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   er innledet med «Her kan følge …» er valgfrie — sett `optional: true`
   på dem. Rubrikken selv behandles som `@NOTAT` i
   leddets `instr`.
-- **Instruksjoner som angår et bestemt påfølgende alternativ eller ledd**
-  («Ved dåp av born:», «Ved dåp av større born, unge eller vaksne:»,
-  «Her kan ein lesa følgjande skriftord:», «Ein i dåpsfølgjet, ein annan
-  medliturg eller liturgen les teksten:» …) skal KNYTTES TIL det de
-  gjelder — ikke ligge som felles instr i forrige ledd. Flytt teksten inn
-  i alternativet/leddet den angår: som `instr` på alternativet eller som
-  `@NOTAT …` først i alt-teksten. Behold nøkkelen («Ved dåp av born:»)
-  først i instr-teksten så det er tydelig hva den gjelder.
+- **Instruksjoner som angår et bestemt påfølgende alternativ** («Ved dåp av
+  born:», «Ved dåp av større born, unge eller vaksne:», «Her kan ein lesa
+  følgjande skriftord:», «Ein i dåpsfølgjet, ein annan medliturg eller
+  liturgen les teksten:» …) løses slik:
+  1. **Instruksjonen formulerer alternativets NAVN** (`label`) — kort og gjenkjennelig,
+     f.eks. `Ved dåp av born`, `Skriftord`, `Dåpsfølge les`.
+  2. **Selve instruksjonen går som `@NOTAT` først i alternativets egen tekst**
+     (`@NOTAT Ved dåp av born: …`), ikke i forrige ledds felles instr.
+  «Vis instruksjoner»-bryteren i appen styrer @NOTAT overalt (også i
+  alternativtekster), så instruksjonen skjules sammen med de andre.
 - **Rolleformer i nynorsk-kildene**: instruksjonen mellom rollen og røret
   inkluderes i rollemerket — «L seier |» → `{{r}}L seier |{{/r}} …`,
   «L syng eller seier |» → `{{r}}L syng eller seier |{{/r}} …`,
