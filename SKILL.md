@@ -19,6 +19,10 @@ ved kjøretid, så aldri stol på lokale kopier.
 > via appens innebygde konverteringsmodal. Et script-utkast skal aldri
 > importeres til appens originaler/brukermaler som om det var ferdig.
 
+> **Målform i navn**: målformen skal IKKE stå i malens `name` («… (nynorsk)») —
+> appen kategoriserer allerede på målform. Behold målformsmarkeringen i
+> FILNAVNET på disk, men sett `name` uten suffiks.
+
 ## Steg 1 — hent siste format og script (ALLTID først)
 
 
@@ -312,6 +316,41 @@ node ~/.cache/liturgi-limal/skriverfelle.mjs <fil.limal> <RAPPORT.md>
 - Kjør den på nytt ETTER hver manuelle redigering av filer, og som siste
   trinn før levering. Kontroller etterpå at filnavnet har korrekt
   skrivemåte («hovedgud·s·tjeneste»).
+
+## Komplekse ledd: splitt etter INNHOLD (dåp-i-HG-mønsteret)
+
+Noen kildeledd er for komplekse for én ledd-/alts-struktur. Følg
+Dåp-HG-bm (brukerens forelegg): del teksten fra docx/pdf i FLERE ledd etter
+innhold, med høytlesbare overskrifter, og bruk introAlts/alts/avslutningAlts
+innad i hvert ledd:
+
+- **Innledning** («I namnet åt …», «Lat oss takka og be:») → introAlts med
+  beskrivende label («Mottaking», «Innledning»). Flere innledningsvarianter
+  («… » + «Eller …») = FLERE introAlts.
+- **Bibelord** — ledd med mange bibeltekster får eget ledd per bolk: fast
+  skriftord = introAlt (label «Skriftord»), valgtekstene = alts med
+  referansen som label («Mark 10,13–16», «Tit 3,4–7» …). Rubrikken som
+  innleder alternativene («Her kan ein lesa …», «Ved dåp av større born …
+  kan … koma i staden:») går i leddets `instr` eller som @NOTAT i
+  introAlten — aldri samlet i en felles instr-robotliste.
+- **Bønn / Takkebønn** («La oss be» / «La oss takke og be») → eget ledd;
+  innledningslinjen er introAlts, bønnevariantene er alts.
+- **Instruksjonspar «Ved X:» / «Ved Y:»** som innleder HVER sin variant →
+  de FORMULERER alternativenes labels («Ved dåp av born») og følger som
+  @NOTAT først i alternativet — aldri som samlet instr-liste i et
+  sideliggende «Eller»-ledd.
+- **Et ledd kalt bare «Eller»** betyr at leddet FØR og leddet ETTER (og ev.
+  flere «Eller»-ledd) er ALTERNATIVER TIL SAMME ledd — ikke en egen gruppe.
+  Slå dem inn i hovedleddet som introAlts/alts og slett «Eller»-leddet.
+- **Faste bolker etter alternativene** (Fadervår, Lovprisning, Evt. sang i
+  dåpen) = egne ledd etter alternativ-leddet — ikke hengende i samme ledds
+  tekst. Innledningslinjen i slike ledd («Lat oss saman be … :») er
+  introAlts, ikke innhold.
+
+Konverteren får nå automatikk for det enkle tilfellet: første alternativ
+som er en kort linje som slutter på «:» løftes til introAlts
+(«Innledning») i `trekkUtIntroAvslutning()`. Alt annet over er steg
+3-arbeid — sjekk alltid mot bm-originalens struktur når den finnes.
 
 ## Steg 4 — app-nær validering (headless)
 
