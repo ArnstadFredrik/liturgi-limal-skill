@@ -240,11 +240,31 @@ kildedokumentet, programmert — ikke bare øynemål:
 5. **Retting**: funnene fra 2–4 rettes i .limal-filen FØR levering —
    kontrollen skal ikke bare dokumentere feil, men få dem rettet.
 
-## Steg 4 — valider i appen
+## Steg 4 — app-nær validering (headless)
 
-Åpne `.limal`-filen (Bibliotek → Maler → importer, eller kopier til
-`~/.config/Liturgi/maler/brukermaler/`) og sjekk rendering i
-redigeringsfanen før du rapporterer ferdig. Ikke overskriv brukerens
+`hent-siste.sh` henter `~/.cache/liturgi-limal/valider-app.mjs` + appens
+egen renderer (`lit.js`). Kjør den på den ferdige malen:
+
+```bash
+node ~/.cache/liturgi-limal/valider-app.mjs <fil>.limal \
+     --seeds ~/.cache/liturgi-limal/seeds
+```
+
+Dette gjentar det appen sjekker ved import/åpning av en mal — headless:
+
+- parse + påkrevde felt, unike id-er, rollemerker balansert i ALLE
+  tekstfelter (text/instr/alts/introAlts/avslutningAlts)
+- **rendering gjennom appens egen litHtml** — fanger feilformede
+  rollemerker/notater som ville sett rare ut i redigeringsvisningen
+- app-regler: selAlt/selIntro/selAvsl i grensene, `type: "salme"`-felt,
+  delGruppe ∈ delGrupper, skriftlesningKilde → seksjonen finnes,
+  bokstavsekvens A,B,C… i katalogen, `optional` konsistent med `* `-
+  heading, **__lenket-malId finnes blant seed-malene** (avslå --seeds
+  for å hoppe over seed-sjekken)
+
+Krav: 0 feil før levering. Advarsler skal være begrunnet i rapporten.
+Visuell sjekk (farger, høyder, faktisk import) gjøres av brukeren ved
+import — oppgi i rapporten at dette gjenstår. Ikke overskriv brukerens
 eksisterende maler uten å spørre.
 
 ## Nyttige stier
