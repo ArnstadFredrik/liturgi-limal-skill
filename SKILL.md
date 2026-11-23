@@ -177,6 +177,9 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   beholder parentesene: `({{r}}L seier |{{/r}})`. Roller SKAL formateres
   OGSÅ inne i alternativer (alts/introAlts/avslutningAlts) — ikke bare i
   leddets hovedtekst.
+- **Roller avslutter med «|» som hovedregel**, men kan også avslutte
+  med «:» eller (sjelden) ha ingen egen avslutning — alle normaliseres
+  til `{{r}}ROLLE |{{/r}}` i malen.
 - **Anten/enten N + eller N-serier inne i ett ledd** (f.eks. Samlingsbønnen
   i HG-nn med «anten 1 … eller 2 … eller 3 …») skal splittes til `alts[]`
   på leddet (label = nummeret), samme mønster som a–g-seriene. Voko for
@@ -254,6 +257,10 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
 
 
 ### Steg 3b — strukturkontroll mot kilden (obligatorisk før rapport)
+
+Rapporten skal alltid inneholde et **sammendrag av**:
+- **leddtitler med `* `** (menigheten som hovedregel står under leddet) — listet opp med leddnummer,
+- **hvor instruksjonene ble plassert** (leddets `instr` vs alternativets egen `instr`/`@NOTAT`), spesielt de som angår et bestemt alternativ («Ved dåp av born:» osv.).
 
 Før du skriver rapporten må du SELV kontrollere den genererte malen mot
 kildedokumentet, programmert — ikke bare øynemål:
