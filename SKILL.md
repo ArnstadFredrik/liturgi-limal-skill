@@ -41,8 +41,13 @@ hoveddeler fra overskrifts-stiler/nummerering/versaler, `@NOTAT` fra
 rubrikker, `BIBELREF |` fra referanselinjer (også klebet på linjeslutt),
 `{{r}}ROLLE |{{/r}}` fra rolleprefiks (med og uten `|`), salmer fra
 `N13 <nr> Tittel`-linjer, sidetall strippes, `T/M/O`-/`©`-copyright som
-`@COPYRIGHT`. Kjente svakheter: sangvers uten N13-markør kan bli egne
-titler, «Eller»-variantgruppering må gjøres manuelt.
+`@COPYRIGHT`. Nummererte leddtittler i ren tekst («4 Samlingsbønn») og
+rollekvalifikatorer («L sier |», «A eller L |», «A (eller L/ML) |»)
+håndteres nå; salme-plassholdere typis som salme-ledd; seriemønstre
+(«Allmenn serie 1», språkserier) merges som alts-labels. Kjente
+svakheter: sangvers uten N13-markør kan bli egne titler, katalog-seksjoner
+i vigsel knuses ofte (bygges manuelt i steg 3), «Eller»-varianter med
+innhold kan stå igjen som egne ledd.
 
 ## Steg 3 — LLM-gjennomgang (dette er din jobb)
 
