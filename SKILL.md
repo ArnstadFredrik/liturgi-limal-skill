@@ -104,7 +104,10 @@ ligger samlet i egen seksjon lengre ned.
   valgfritt. Behold prefikset og nummereringen.
 - **Valgfrie ledd markeres med `optional: true`** — aldri avledet av
   `* `-prefikset. Kilden markerer dem med «Her kan følge …» / «kan»-
-  formuleringer, eller de er dokumentert i originalen.
+  formuleringer, eller de er dokumentert i originalen. Kopier ikke
+  originalmalens per-ledd optional-mønster blindt — synkroniser det mot
+  bm-originalen per normalisert heading (stripp `* ` og ledende nummer,
+  lowercase).
 - **`malForm` og `liturgiType`** (`gudtjeneste`/`vigsel`/`gravferd`)
   eksplisitt — aldri la filnavnet bestemme alene.
 - **WIP/utkast-status bor i malen** (`wip: true`) — ingen db-nøkkel.
@@ -114,6 +117,11 @@ ligger samlet i egen seksjon lengre ned.
   tittelside og skal bort. Rotete docx-headings («ORDNING FOR»,
   «ELLER», «JORDPÅKASTELSE») ryddes.
 - **Unike id-er med malprefiks** (f.eks. `vigsel-2017-bokmal-7`).
+- **Målformsvarianter må ha eksplisitt id: `<bm-id>-nynorsk`** — konverteren
+  avleder id fra navnet, og med målformen ut av navnet får nn-varianten ellers
+  SAMME id som bm-originalen. Id-kollisjon bryter appens seed-integritetssjekk
+  (bm/nn-par matches på id) og dedupe, og bm-innholdet overskriver nn-filen
+  ved neste app-oppstart.
 - **Kildefeil («0g sier» osv.) bevares verbatim** (literal preservation)
   og flagges i rapporten. Wingdings-korset (U+F058) → ✝ (automatisk).
   Sidereferanser («(se s 11)») omskrives til seksjonsnavn; tapte
@@ -290,7 +298,12 @@ kildedokumentet, programmert — ikke bare øynemål:
    avslutningAlts/heading/label). Rapporter dekningsprosent (f.eks.
    «307/307 avsnitt») og LIST alle avvik med begrunnelse (tittelside,
    sidetall, rubrikker som ble til alts-labels, klebde rolleprefiks osv.
-   er gyldige unntak — men de skal være begrunnet).
+   er gyldige unntak — men de skal være begrunnet). Match uten
+   Rolle-prefiks: kilden kan ha «L |tekst»/«L|tekst» klebet sammen, mens
+   malen har `{{r}}L |{{/r}} tekst` — stripp et ledende
+   `ROLLE |`-prefiks fra kildeparagrafen og match på nytt før du
+   rapporterer avsnittet som udekket, ellers får du falske avvik for
+   hver rollelinje.
 3. **Struktursjekk**: alle nummererte ledd i kilden finnes som ledd med
    riktig nummer og tittel; seksjonsinndelingen følger liturgitypen;
    rollemerker balansert i ALLE tekstfelt; BIBELREF sist i felt
@@ -376,7 +389,12 @@ eksisterende maler uten å spørre.
   `chr(115)`/`String.fromCharCode`, skann med kjøretidsmønstre (aldri
   grep — kollasjon), rett commit-meldinger pre-push med
   `git commit --amend` (etter push kreves force-with-lease — spør
-  brukeren). Bash-skript: ASCII-variabelnavn kun.
+  brukeren). Bash-skript: ASCII-variabelnavn kun. **Filstier med
+  «gud(s)tjeneste»-ord i shell-kommandoer rammes også** — en bokstavelig
+  sti som `maler/originaler/Dåp i hovedgudtjenesten …` mister s-en og gir
+  stille ENOENT eller «ren»-svar fra skriverfellen; lokalisér filer med
+  python (glob/listdir + `chr(115)`-konkatenering) og send stien videre
+  derfra.
 - Synk av repo-kopier (ved vedlikehold av skill-repoet):
   `scripts/sync-format.sh` + `scripts/sync-konverter.sh`
 - Test-syklus for skill-forbedring (brukerstyrt): samme mal konverteres
