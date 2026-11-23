@@ -194,6 +194,31 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   `liturgiFormat: 1` og kind=template. App-validering (steg 4) skjer når
   malen importeres av brukeren — oppgi i rapporten at steg 4 ikke er kjørt.
 
+
+### Steg 3b — strukturkontroll mot kilden (obligatorisk før rapport)
+
+Før du skriver rapporten må du SELV kontrollere den genererte malen mot
+kildedokumentet, programmert — ikke bare øynemål:
+
+1. **Kilddump**: les docx-en (python3 + zipfile + regex over
+   `word/document.xml`, ta med avsnittstil for hvert avsnitt) eller pdf-en
+   (`pdftotext -layout`). Lagre dumpen til fil (f.eks. `kilde-dump.txt`).
+2. **Dekningssjekk**: gå gjennom HVER kildeparagraf og kontroller at
+   meningsinnholdet finnes i .limalen (i text/instr/alts/introAlts/
+   avslutningAlts). Rapporter dekningsprosent (f.eks. «307/307 avsnitt») og
+   LISTE alle avvik med begrunnelse (tittelside, sidetall, dupliserte
+   rubrikker osv. er gyldige unntak — men de skal være begrunnet).
+3. **Struktursjekk**: alle nummererte ledd i kilden finnes som ledd med
+   riktig nummer og tittel; seksjonsinndelingen følger liturgitypen
+   (hg: I–IV + valgfrie `*`-ledd; vigsel: én seksjon per ledd 1–13 +
+   katalog-seksjon mellom ledd 4 og 5; gravferd: funksjonelle seksjoner +
+   delGruppe); rollemerker balansert i ALLE tekstfelt; BIBELREF sist i
+   felt (meny-ledd unntak).
+4. **Verktøy**: kjør `node <skill-katalog>/scripts/valider.mjs <fil>.limal`
+   — 0 feil er krav; advarsler skal være begrunnet i rapporten.
+5. **Retting**: funnene fra 2–4 rettes i .limal-filen FØR levering —
+   kontrollen skal ikke bare dokumentere feil, men få dem rettet.
+
 ## Steg 4 — valider i appen
 
 Åpne `.limal`-filen (Bibliotek → Maler → importer, eller kopier til
