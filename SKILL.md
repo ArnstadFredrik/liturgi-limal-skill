@@ -156,7 +156,10 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   «Jordpåkastelse» (to seksjoner — ved graven / i krematorium, gjerne med
   delGruppe eller A./B.-titler). En «Alminnelige bestemmelser»-før-seksjon
   med bestemmelsene som én instr-item er godkjent.
-- **Rollemerket er BARE rolletokenet** (`{{r}}L |{{/r}}`) — kvalifikasjoner
+- **Rollemerket er BARE rolletokenet** — eksempel: kildelinjen
+  «L synger eller sier: Herren være med dere» blir
+  `{{r}}L |{{/r}} synger eller sier: Herren være med dere` (kvalifikatoren
+  STÅR I TEKSTEN rett etter merket).  (`{{r}}L |{{/r}}`) — kvalifikasjoner
   («synger eller sier», «vendt mot menigheten») holdes UTENFOR r-merket, i
   tekststart eller `@NOTAT`. Ikke lag roller som «L synger eller sier».
 - **«Ved barns gravferd»** i gravferdsmalen: valgfritt ledd (`* `-markering)
@@ -176,11 +179,19 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
 - **Skriverfellen («gudtjeneste» uten s)**: sjekk filnavn, rapport og
   .limal-fil for «gudtjeneste»-uten-s-mønsteret og rett til «gud·s·tjeneste»
   før levering. Filnavnet skal være «hovedgud·s·tjeneste» med s.
-- **Nattverdbønnene i hovedgudstjenesten**: Sanctus og verba er gjentatt inni
-  hver nattverdbønne-variant i kilden. Formatet støtter ikke nestede
-  varianter — behold dupliseringen inni alts-teksten (kjent begrensning),
-  eller gjør slik originalmalen gjør det (se seed som FORMAT-referanse fra
-  en annen liturgi).
+- **Nattverddelen i hovedgudstjenesten — kildens bønneserier (a–g)
+  IKKE flattet ut i én alts-gruppe**: originalen deler serien over PARALLELE
+  ledd, ett ledd per serie-trinn, der hvert trinn får seriens varianter som
+  alts. III. Nattverd i originalen: 20 Forberedelse av måltidet, Prefasjonsdialog
+  (felles tekst), * 21 Prefasjon (alts: 19), Sanctus (alts: 2), Epiklese
+  (alts: 7), Innstiftelsesordene VERBA (alts: 7), Troens mysterium (felles),
+  Avslutning (alts: 7), Fadervår, * 22 Fredshilsen PAX, Du Guds Lam AGNUS DEI
+  (alts: 2), Invitasjon og utdeling, 23 Måltidets avslutning – Takkebønn
+  (alts: 4). Felles tekster (dialog, Troens mysterium) er egne ledd uten alts.
+- **Salme-plassholdere**: ledd som bare markerer «salme her» (ingen
+  konkret salme i kilden) skal være `type: "salme"` med tomme
+  salmeNr/salmeTittel og valgrubrikken (f.eks. «Salmen velges …») i
+  `instr` — ikke som tekst-ledd.
 - **Wingdings-korset** (U+F058 i docx-runs) konverteres automatisk til ✝.
 - **Sidereferanser i kilden** («(se s 11 i dokumentet)») omskrives til
   seksjonsnavn («(se seksjonen Skriftlesninger)»).
