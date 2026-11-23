@@ -10,7 +10,16 @@ Konverterer Word/PDF-liturgier til `.limal`-maler for liturgi-appen.
 konverter-logikken — skillen henter alltid siste versjon fra GitHub
 ved kjøretid, så aldri stol på lokale kopier.
 
+> **Hovedregel (brukerens ordrede beslutning)**: når brukeren ber om å
+> konvertere en mal, skal ALLTID hele skillen kjøres på clean install —
+> CLI-utkast → LLM-gjennomgang (steg 3) → strukturkontroll mot kilden
+> (steg 3b) → skriverfelle → headless validering (steg 4) → rapport med
+> sammendrag. Script-only (CLI + validering uten LLM-gjennomgang) gjøres
+> KUN når brukeren eksplisitt ber om det, eller når brukeren selv importerer
+> via appens innebygde konverteringsmodal. Et script-utkast skal aldri
+> importeres til appens originaler/brukermaler som om det var ferdig.
 ## Steg 1 — hent siste format og script (ALLTID først)
+
 
 ```bash
 bash <skill-mappe>/scripts/hent-siste.sh
