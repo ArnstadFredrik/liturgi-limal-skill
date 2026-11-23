@@ -202,7 +202,8 @@ function byggStruktur(avsnitt, advarsler) {
   };
   const nyttLedd = (heading, type = 'tekst') => {
     if (!sec) nySeksjon('Uten tittel');
-    const valgfri = /^\*\s?/.test(heading ?? '');
+    // '* ' = menigheten star (ikke valgfri); optional settes kun ved «Her kan følge …»
+    const valgfri = false;
     item = { id: uid(), type, heading: heading ?? '', instr: '', text: '', alts: [], selAlt: 0, enabled: true, optional: valgfri, salmeNr: '', salmeTittel: '' };
     sec.items.push(item);
   };

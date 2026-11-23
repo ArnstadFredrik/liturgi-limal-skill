@@ -58,7 +58,10 @@ Les skriptets utdata mot kildedokumentet og rett:
   `alts[]` på samme ledd (label = gjerne bibelreferansen).
 - `BIBELREF | <ref>` sist i `text` for bibeltekster.
 - `@NOTAT …` for instruksjoner/rubrikker, `@COPYRIGHT | …` for salmeinfo.
-- Leddtitler: `* ` prefiks på valgfrie ledd; behold nummerering.
+- Leddtitler: `* ` prefiks betyr at **menigheten som hovedregel står**
+  under dette leddet (sitat fra malen: «Et stjernetegn (*) er satt til ledd
+  der menigheten som hovedregel står.») — det betyr IKKE at leddet er
+  valgfritt. Behold prefikset og nummereringen.
 - Sangvers som ble egne titler: slå sammen til ett salmeledd.
 - `malForm` og `liturgiType` (`gudstjeneste`/`vigsel`/`gravferd`).
 
@@ -123,9 +126,13 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   → `alts[]` (erstatter leddteksten); tekst som følger alle varianter →
   `avslutningAlts` (rendres etter). Felles «La oss be.», erklæringer og
   Fadervår hører typisk i intro-/avslutning-alts.
-- **Valgfrie ledd** markeres `* ` før headingen. Hovedgudstjenesten bm 2020 har
-  10 valgfrie ledd: 2, 3, 12, 14, 21, 22, 24, 25, 26, 27. **Vigsel-malene har
-  ingen valgfrie ledd — ikke oppfinn dem der.**
+- **Valgfrie ledd markeres med `optional: true`** — IKKE med `* `-prefikset
+  (det betyr at menigheten står, se over). Ekte valgfrie ledd markeres i
+  kilden med «Her kan følge …»-innledninger eller er dokumentert i
+  originalen (hovedgudstjenesten bm 2020: ledd 21 Prefasjon, 24 Salme og
+  27 Postludium har `optional: true` i originalen; de andre `* `-leddene
+  har det IKKE). **Vigsel-malene har ingen valgfrie ledd — ikke oppfinn
+  dem der.**
 - **Vigsel-strukturen i detalj** (2003 og 2017): seksjoner = Bestemmelser (én
   instr-item med hele bestemmelsesteksten; seksjonstittelen er «Bestemmelser»
   og bestemmelsesteksten er ÉTT item — ikke delt opp), deretter én seksjon per nummerert
@@ -149,8 +156,18 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
 - **BIBELREF-meny-ledd**: et ledd som tilbyr FLERE lesningsalternativer kan ha
   flere `BIBELREF |`-linjer midt i text (én per alternativ). Konvensjonen
   «BIBELREF sist» gjelder vanlige enkelt-lesningsledd; meny-ledd er unntak.
-- **«Her kan følge …»-rubrikker** og liknende valgrubrikker → `@NOTAT` i
+- **«Her kan følge …» markerer VALGFRIHET**: ledd og alternativer som
+  er innledet med «Her kan følge …» er valgfrie — sett `optional: true`
+  på dem. Rubrikken selv behandles som `@NOTAT` i
   leddets `instr`.
+- **Instruksjoner som angår et bestemt påfølgende alternativ eller ledd**
+  («Ved dåp av born:», «Ved dåp av større born, unge eller vaksne:»,
+  «Her kan ein lesa følgjande skriftord:», «Ein i dåpsfølgjet, ein annan
+  medliturg eller liturgen les teksten:» …) skal KNYTTES TIL det de
+  gjelder — ikke ligge som felles instr i forrige ledd. Flytt teksten inn
+  i alternativet/leddet den angår: som `instr` på alternativet eller som
+  `@NOTAT …` først i alt-teksten. Behold nøkkelen («Ved dåp av born:»)
+  først i instr-teksten så det er tydelig hva den gjelder.
 - **Kildefeil («0g sier» osv.) bevares verbatim** (literal preservation) og
   flagges i rapporten.
 - **Gravferdsstrukturen i detalj** (2003): seksjoner med
@@ -177,7 +194,8 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   STÅR I TEKSTEN rett etter merket).  (`{{r}}L |{{/r}}`) — kvalifikasjoner
   («synger eller sier», «vendt mot menigheten») holdes UTENFOR r-merket, i
   tekststart eller `@NOTAT`. Ikke lag roller som «L synger eller sier».
-- **«Ved barns gravferd»** i gravferdsmalen: valgfritt ledd (`* `-markering)
+- **«Ved barns gravferd»** i gravferdsmalen: `* `-markeringen betyr her at
+  menigheten står (ikke valgfrihet)
   med tre lesningstekster i sekvens.
 - **Item-former** (`type: "instruks"`, fulle rollenavn, «Kort»/«Lang»-labels)
   kan leses fra et seed av en ANNEN liturgi som FORMAT-referanse.
