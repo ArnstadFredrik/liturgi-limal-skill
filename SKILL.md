@@ -154,7 +154,9 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   egne ledd i en «Skriftlesninger»-seksjon, hver med alts[] per tekst (label =
   tema eller bibelref). Originalens seksjonstitler er
   funksjonelle: «Inngang og minneord», «Skriftlesninger», «Tale»,
-  «Jordpåkastelse» og «Jordpåkastelse». Eksakt fordeling i originalen:
+  «Jordpåkastelse» og «Jordpåkastelse» (delGruppe-navnene i originalen
+  er «gravferd» og «bisettelse» — IKKE «ved graven»/«i krematorium»).
+  Eksakt fordeling i originalen:
   «Inngang og minneord» = ledd 1–8; «Tale» = ledd 9–14 PLUS
   «15 Postludium» (ja — den ligger i Tale-seksjonen); første
   «Jordpåkastelse» (delGruppe «gravferd») = holder-leddet «Gravferd» +
@@ -191,7 +193,7 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   IKKE flattet ut i én alts-gruppe**: originalen deler serien over PARALLELE
   ledd, ett ledd per serie-trinn, der hvert trinn får seriens varianter som
   alts. III. Nattverd i originalen: 20 Forberedelse av måltidet, Prefasjonsdialog
-  (felles tekst), * 21 Prefasjon (alts: 19 — kirkeårsvarianter: Advent, Jul, Åpenbaringstiden, Faste, Påske … IKKE nattverdbønne-serien), Sanctus (alts: 2), Epiklese
+  (felles tekst), * 21 Prefasjon (alts: 19 — kirkeårsvarianter: Advent, Jul, Åpenbaringstiden, Faste, Påske … IKKE nattverdbønne-serien; KILDEDOKUMENTET har bare 8 varianter — originalens 19 er manuelt arbeidet, ikke oppfinn ekstra), Sanctus (alts: 2), Epiklese
   (alts: 7), Innstiftelsesordene VERBA (alts: 7), Troens mysterium (felles),
   Avslutning (alts: 7), Fadervår, * 22 Fredshilsen PAX, Du Guds Lam AGNUS DEI
   (alts: 2), Invitasjon og utdeling, 23 Måltidets avslutning – Takkebønn
