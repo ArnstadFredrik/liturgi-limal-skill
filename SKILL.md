@@ -153,11 +153,15 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   egne ledd i en «Skriftlesninger»-seksjon, hver med alts[] per tekst (label =
   tema eller bibelref). Originalens seksjonstitler er
   funksjonelle: «Inngang og minneord», «Skriftlesninger», «Tale»,
-  «Jordpåkastelse» og «Jordpåkastelse». Leddførdeling: «Inngang og
-  minneord» = ledd 1–8, «Tale» = ledd 9–14, første «Jordpåkastelse» =
-  ledd 15–18 (ved graven 16–22), andre «Jordpåkastelse» = ledd 19–23 (i
-  krematorium). En «Alminnelige bestemmelser»-seksjon først (bestemmelsene
-  som én instr-item) er godkjent i tillegg — seksjoner skal IKKE splittes
+  «Jordpåkastelse» og «Jordpåkastelse». Eksakt fordeling i originalen:
+  «Inngang og minneord» = ledd 1–8; «Tale» = ledd 9–14 PLUS
+  «15 Postludium» (ja — den ligger i Tale-seksjonen); første
+  «Jordpåkastelse» (delGruppe «gravferd») = holder-leddet «Gravferd» +
+  ledd 16–22; andre «Jordpåkastelse» (delGruppe «bisettelse») =
+  holder-leddet «Bisettelse» + ledd 19–23 («23 Postludium»). Holder-ledd
+  («Gravferd»/«Bisettelse») er korte innledningsledd uten nummer. En
+  «Alminnelige bestemmelser»-seksjon først (bestemmelsene som én
+  instr-item) er godkjent i tillegg — seksjoner skal IKKE splittes
   ytterligere.
 - **Rollemerket er BARE rolletokenet** — eksempel: kildelinjen
   «L synger eller sier: Herren være med dere» blir
