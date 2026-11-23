@@ -122,7 +122,8 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   10 valgfrie ledd: 2, 3, 12, 14, 21, 22, 24, 25, 26, 27. **Vigsel-malene har
   ingen valgfrie ledd — ikke oppfinn dem der.**
 - **Vigsel-strukturen i detalj** (2003 og 2017): seksjoner = Bestemmelser (én
-  instr-item med hele bestemmelsesteksten), deretter én seksjon per nummerert
+  instr-item med hele bestemmelsesteksten; seksjonstittelen er «Bestemmelser»
+  og bestemmelsesteksten er ÉTT item — ikke delt opp), deretter én seksjon per nummerert
   ledd med item.heading identisk til seksjonstittelen: 1 Preludium/Inngang,
   2 Inngangsord, 3 Salme, 4 Skriftlesning, 5 Salme, 6 Tale,
   7 Ekteskapsinngåelse, 8 Overrekkelse av ringer, 9 Forbønn,
