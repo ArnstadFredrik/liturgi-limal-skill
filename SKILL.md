@@ -168,11 +168,13 @@ Les dette før du konverterer — det dekker hullene test-agentene rapporterte:
   i alternativet/leddet den angår: som `instr` på alternativet eller som
   `@NOTAT …` først i alt-teksten. Behold nøkkelen («Ved dåp av born:»)
   først i instr-teksten så det er tydelig hva den gjelder.
-- **Rolleformer i nynorsk-kildene** formateres som andre roller: «L syng
-  eller seier |» og «L seier |» → `{{r}}L |{{/r}} syng eller seier: …` /
-  `{{r}}L |{{/r}} seier: …`; «A eller L/ML |» → `{{r}}A/L/ML |{{/r}} …`;
-  «A syng |» → `{{r}}A |{{/r}} syng: …`. Rolletokenet kan være
-  flerleddet («L/ML», «A eller L/ML» → `A/L/ML`). Roller SKAL formateres
+- **Rolleformer i nynorsk-kildene**: instruksjonen mellom rollen og røret
+  inkluderes i rollemerket — «L seier |» → `{{r}}L seier |{{/r}} …`,
+  «L syng eller seier |» → `{{r}}L syng eller seier |{{/r}} …`,
+  «A eller L/ML |» → `{{r}}A eller L/ML |{{/r}} …`, «L/ML seier |» →
+  `{{r}}L/ML seier |{{/r}} …`, «K reiser seg og syng |» →
+  `{{r}}K reiser seg og syng |{{/r}} …`. Parentes-formen «(L seier |)»
+  beholder parentesene: `({{r}}L seier |{{/r}})`. Roller SKAL formateres
   OGSÅ inne i alternativer (alts/introAlts/avslutningAlts) — ikke bare i
   leddets hovedtekst.
 - **Anten/enten N + eller N-serier inne i ett ledd** (f.eks. Samlingsbønnen
